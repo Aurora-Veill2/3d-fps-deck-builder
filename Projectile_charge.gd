@@ -3,7 +3,7 @@ extends Node3D
 @export var accel = 1.1
 @export var lifetime = 120
 @export var pierce = 2
-@export var dmg = 2
+@export var dmg = 1
 var maker := CharacterBody3D
 var pVel = Vector3.ZERO
 var velocity
@@ -15,7 +15,7 @@ func _ready():
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _physics_process(delta: float) -> void:
+func _physics_process(_delta: float) -> void:
 	pVel = pVel * accel
 	velocity = pVel
 	position += velocity

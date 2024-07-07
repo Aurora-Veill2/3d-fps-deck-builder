@@ -3,9 +3,10 @@ extends Node3D
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity") / 100
 @export var speed = 0.5
 @export var pierce = 1
+@export var ignoreWall = false
 var direction = Vector3.ZERO
 var velocityY = 0
-var dmg = 1
+@export var dmg = 1
 var maker := CharacterBody3D
 func _ready():
 	set_as_top_level(true)
@@ -26,7 +27,7 @@ func _on_area_3d_body_shape_entered(_body_rid, body, _body_shape_index, _local_s
 			pierce -= 1
 			if pierce <= 0:
 				queue_free()
-		else:
+		elif !ignoreWall:
 			queue_free()
 
 func set_dir(dir, grav):

@@ -54,6 +54,29 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("3_rrteo")
 
+[node name="HPBar2" type="ColorRect" parent="Fullscreen Effects"]
+layout_mode = 0
+offset_top = 128.0
+offset_right = 1000.0
+offset_bottom = 192.0
+color = Color(0.41, 0.41, 0.41, 1)
+
+[node name="HPBar" type="ColorRect" parent="Fullscreen Effects"]
+layout_mode = 0
+offset_top = 128.0
+offset_right = 1000.0
+offset_bottom = 192.0
+color = Color(1, 0, 0, 1)
+
+[node name="Health" type="Sprite2D" parent="Fullscreen Effects/HPBar"]
+modulate = Color(1, 0, 0, 1)
+position = Vector2(64, -64)
+scale = Vector2(8, 8)
+texture = ExtResource("5_i3rbi")
+hframes = 4
+vframes = 4
+frame = 9
+
 [node name="Cards" type="BoxContainer" parent="."]
 layout_mode = 1
 anchors_preset = 3
@@ -129,3 +152,79 @@ texture = ExtResource("5_i3rbi")
 hframes = 4
 vframes = 4
 frame = 15
+
+[node name="PauseMenu" type="MarginContainer" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="PauseMenu"]
+layout_mode = 2
+color = Color(0, 0, 0, 0.529412)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PauseMenu"]
+layout_mode = 2
+size_flags_horizontal = 4
+alignment = 1
+
+[node name="Resume" type="Button" parent="PauseMenu/VBoxContainer"]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+focus_neighbor_bottom = NodePath("../Quit")
+focus_next = NodePath("../Quit")
+text = "Resume"
+
+[node name="Separator" type="Label" parent="PauseMenu/VBoxContainer"]
+layout_mode = 2
+
+[node name="Quit" type="Button" parent="PauseMenu/VBoxContainer"]
+layout_mode = 2
+focus_neighbor_top = NodePath("../Resume")
+focus_neighbor_bottom = NodePath("../sensSlider")
+focus_next = NodePath("../sensSlider")
+focus_previous = NodePath("../Resume")
+text = "Quit"
+
+[node name="Separator2" type="Label" parent="PauseMenu/VBoxContainer"]
+layout_mode = 2
+
+[node name="sensLabel" type="Label" parent="PauseMenu/VBoxContainer"]
+layout_mode = 2
+text = "Sensitivity - 100%"
+horizontal_alignment = 1
+
+[node name="sensSlider" type="HSlider" parent="PauseMenu/VBoxContainer"]
+layout_mode = 2
+focus_neighbor_top = NodePath("../Quit")
+focus_neighbor_bottom = NodePath("../opaSlider")
+focus_next = NodePath("../opaSlider")
+focus_previous = NodePath("../Quit")
+min_value = 0.01
+max_value = 2.0
+step = 0.01
+value = 1.0
+
+[node name="Separator3" type="Label" parent="PauseMenu/VBoxContainer"]
+layout_mode = 2
+
+[node name="opaLabel" type="Label" parent="PauseMenu/VBoxContainer"]
+layout_mode = 2
+text = "Opacity - 100%"
+horizontal_alignment = 1
+
+[node name="opaSlider" type="HSlider" parent="PauseMenu/VBoxContainer"]
+layout_mode = 2
+focus_neighbor_top = NodePath("../sensSlider")
+focus_previous = NodePath("../sensSlider")
+max_value = 1.0
+step = 0.01
+value = 1.0
+
+[connection signal="pressed" from="PauseMenu/VBoxContainer/Resume" to="." method="_on_resume_pressed"]
+[connection signal="pressed" from="PauseMenu/VBoxContainer/Quit" to="." method="_on_quit_pressed"]
+[connection signal="value_changed" from="PauseMenu/VBoxContainer/sensSlider" to="." method="_on_sens_slider_value_changed"]
+[connection signal="value_changed" from="PauseMenu/VBoxContainer/opaSlider" to="." method="_on_opa_slider_value_changed"]

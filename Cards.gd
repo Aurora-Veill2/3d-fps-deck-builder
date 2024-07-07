@@ -4,7 +4,7 @@ extends Control
 @onready var PC = get_parent().get_parent().PC
 @onready var handC = [$Card0, $Card1, $Card2, $Card3]
 
-func _process(delta):
+func _process(_delta):
 	if handC:
 		for i in handC:
 			i.set_texture(null)

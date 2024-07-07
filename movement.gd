@@ -6,11 +6,13 @@ signal take_dmg
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 var projectile = preload("res://projectile.tscn")
 @onready var cameraf = $fpv
+@onready var global = get_node("/root/GlobalVars")
 var hand = Array()
 var activeCard = 0
 var hasDashed = false
 func _process(_delta):
-	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+	if !get_node("../UI").isPaused:
+		Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 
 func _physics_process(delta):
 	if not is_on_floor():
@@ -52,12 +54,12 @@ func _physics_process(delta):
 	if abs(velocity.x) > SPEED or abs(velocity.z) > SPEED or velocity.y > JUMP_VELOCITY:
 		velocity /= 1.1
 func _input(event):
-	if event is InputEventMouseMotion:
-		rotation.y -= event.relative.x / 100
-		cameraf.rotation.x -= event.relative.y / 250
+	if event is InputEventMouseMotion and !get_node("../UI").isPaused:
+		rotation.y -= (event.relative.x * global.sens) / 100
+		cameraf.rotation.x -= (event.relative.y * global.sens) / 250
 		
-func attack(projectile: PackedScene) -> void:
-	var atk = projectile.instantiate()
+func attack(Projectile: PackedScene) -> void:
+	var atk = Projectile.instantiate()
 	atk.position = position
 	atk.set_dir(-cameraf.get_global_transform().basis.z, true)
 	atk.maker = self

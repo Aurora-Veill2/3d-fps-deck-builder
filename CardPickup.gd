@@ -11,7 +11,7 @@ func _ready():
 	$Sprite3D.set_texture(temp.sprite)
 	$Sprite3D2.set_texture(temp.sprite)
 
-func _on_area_3d_body_shape_entered(body_rid, body, body_shape_index, local_shape_index):
+func _on_area_3d_body_shape_entered(_body_rid, body, _body_shape_index, _local_shape_index):
 	if (body.has_method("addCard")):
 		body.addCard(heldcard, self)
 func _process(delta):

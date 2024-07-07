@@ -1,5 +1,5 @@
 extends Node3D
-@export var maxHP = 100
+@export var maxHP = 10
 @export var regenSpeed = 0
 @export var maxRegenTimer = 1
 var hp = maxHP
